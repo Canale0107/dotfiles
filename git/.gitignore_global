@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+
+# secrets / creds (global)
+.env
+.env.*
+*.pem
+*.key
+
+# ssh
+.ssh/

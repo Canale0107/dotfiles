@@ -1,14 +1,7 @@
-# secrets / local
+# dotfiles repo: secrets / local-only files
 *.local
 *.secret
-.env
-.env.*
 .zshenv.local
-
-# ssh / gpg
-.ssh/
-*.pem
-*.key
 
 # misc
 .DS_Store
