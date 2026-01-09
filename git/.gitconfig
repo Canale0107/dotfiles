@@ -1,15 +1,22 @@
+# Git user configuration
 [user]
   name = Canale0107
   email = 69461959+Canale0107@users.noreply.github.com
 
+# Default branch name for new repositories
 [init]
   defaultBranch = main
 
+# Core Git settings
 [core]
+  # Use VS Code as the default editor
   editor = code --wait
+  # Use delta as the pager for git diff/log
   pager = delta
+  # Global gitignore file location
   excludesfile = ~/.gitignore_global
 
+# Delta pager configuration (enhanced diff viewer)
 [delta]
   syntax-theme = Dracula
   features = decorations
