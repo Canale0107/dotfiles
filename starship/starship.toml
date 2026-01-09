@@ -1,5 +1,138 @@
-[git_status]
-disabled = true
+# Starship プロンプト設定
+# 詳細: https://starship.rs/config/
 
+# プロンプトのフォーマット
+format = """
+[╭─](bold cyan)\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$nodejs\
+$python\
+$rust\
+$golang\
+$docker_context\
+$package\
+$time
+[╰─](bold cyan)\
+$character"""
+
+# プロンプト記号
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[V](bold green)"
+
+# ユーザー名（通常は非表示、SSH接続時のみ表示）
+[username]
+show_always = false
+format = "[$user]($style) "
+style_user = "bold yellow"
+style_root = "bold red"
+
+# ホスト名（通常は非表示、SSH接続時のみ表示）
+[hostname]
+ssh_only = true
+format = "@[$hostname]($style) "
+style = "bold yellow"
+
+# ディレクトリ
+[directory]
+truncation_length = 3
+truncation_symbol = "…/"
+format = "in [$path]($style)[$read_only]($read_only_style) "
+style = "bold cyan"
+read_only = " 🔒"
+read_only_style = "red"
+
+# Git ブランチ
+[git_branch]
+format = "on[$symbol$branch(:$remote_branch)]($style) "
+symbol = " "
+style = "bold purple"
+truncation_length = 20
+truncation_symbol = "…"
+
+# Git ステータス（変更がある場合のみ表示）
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style) )'
+style = "bold yellow"
+conflicted = "!"
+up_to_date = "✓"
+untracked = "?"
+stashed = "$"
+modified = "*"
+staged = "+${count}"
+renamed = "r"
+deleted = "x"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+
+# Git メトリクス（無効化）
 [git_metrics]
 disabled = true
+
+# Node.js
+[nodejs]
+format = "via [$symbol($version )]($style)"
+symbol = " "
+style = "bold green"
+detect_files = ["package.json"]
+detect_folders = ["node_modules"]
+
+# Python
+[python]
+format = "via [$symbol($version )($virtualenv )]($style)"
+symbol = " "
+style = "bold yellow"
+detect_files = [".python-version", "Pipfile", "__pycache__", "pyproject.toml", "requirements.txt", "setup.py", "tox.ini"]
+detect_folders = []
+
+# Rust
+[rust]
+format = "via [$symbol($version )]($style)"
+symbol = " "
+style = "bold red"
+detect_files = ["Cargo.toml", "Cargo.lock"]
+detect_folders = []
+
+# Go
+[golang]
+format = "via [$symbol($version )]($style)"
+symbol = " "
+style = "bold cyan"
+detect_files = ["go.mod", "go.sum", "glide.yaml", "Gopkg.yml", "Gopkg.lock", ".go-version"]
+detect_folders = ["Godeps"]
+
+# Docker コンテキスト
+[docker_context]
+format = "via [$symbol$context]($style) "
+symbol = "🐳 "
+style = "bold blue"
+only_with_files = true
+detect_files = ["docker-compose.yml", "docker-compose.yaml", "Dockerfile", ".dockerignore"]
+detect_folders = []
+
+# パッケージ情報（package.json など）
+[package]
+format = "is [$symbol$version]($style) "
+symbol = "📦 "
+style = "bold 208"
+display_private = false
+
+# 実行時間（10秒以上かかったコマンドのみ表示）
+[cmd_duration]
+min_time = 10_000
+format = "took [$duration]($style) "
+style = "bold yellow"
+
+# 時刻（右側に表示）
+[time]
+disabled = false
+format = "at [$time]($style) "
+style = "bold white"
+use_12hr = false
+time_format = "%T"
