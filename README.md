@@ -8,6 +8,13 @@
 - **git**: `.gitconfig` と `.gitignore_global` 設定ファイル
 - **starship**: プロンプトカスタマイズ設定 (`starship.toml`)
 
+## 前提条件
+
+以下のツールのインストールを推奨します（インストールスクリプトがチェックします）:
+
+- **starship**: `curl -sS https://starship.rs/install.sh | sh`
+- **fzf**: `brew install fzf`
+
 ## インストール方法
 
 ```bash
@@ -15,6 +22,14 @@
 ```
 
 このスクリプトは、各設定ファイルをホームディレクトリにシンボリックリンクとして配置します。
+
+## アンインストール方法
+
+```bash
+./uninstall.sh
+```
+
+シンボリックリンクを削除し、バックアップからの復元を選択できます。
 
 ## 構成
 
@@ -28,6 +43,7 @@ dotfiles/
 ├── starship/
 │   └── starship.toml
 ├── install.sh
+├── uninstall.sh
 └── README.md
 ```
 
