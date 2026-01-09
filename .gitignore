@@ -1,0 +1,14 @@
+# secrets / local
+*.local
+*.secret
+.env
+.env.*
+.zshenv.local
+
+# ssh / gpg
+.ssh/
+*.pem
+*.key
+
+# misc
+.DS_Store
