@@ -45,3 +45,13 @@ fi
 if command -v starship >/dev/null 2>&1; then
   eval "$(starship init zsh)"
 fi
+
+# ============================================================
+# Python
+# ============================================================
+# 思想: Pythonは必須機能。柔軟にインストール方法に対応し、必須ではない
+# - 複数のインストール方法に対応（手動インストール、Homebrew）
+# - 存在しない場合はエラーにせずスキップ（ポータブルな設定）
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
