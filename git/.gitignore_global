@@ -3,7 +3,6 @@
 
 # secrets / creds (global)
 .env
-.env.*
 *.pem
 *.key
 
