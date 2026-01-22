@@ -53,8 +53,12 @@ fi
 # - 複数のインストール方法に対応（手動インストール、Homebrew）
 # - 存在しない場合はエラーにせずスキップ（ポータブルな設定）
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+if [[ -d "$PYENV_ROOT" ]]; then
+  export PATH="$PYENV_ROOT/bin:$PATH"
+fi
+if command -v pyenv >/dev/null 2>&1; then
+  eval "$(pyenv init - 2>/dev/null)"
+fi
 
 # ============================================================
 # エイリアス（ls, li）
@@ -62,6 +66,15 @@ eval "$(pyenv init -)"
 # ezaコマンドを使って、見やすいアイコン付きリスト表示を提供
 # - ls:    通常表示をeza + アイコンで実現
 # - li:    詳細（-la）表示＋Git情報＋アイコン付き
-
 alias ls="eza --icons"
 alias li="eza -la --icons --git"
+
+# ============================================================
+# secrets (do not commit)
+# ============================================================
+# 思想: 秘密情報は dotfiles に入れず、ホーム直下のローカルファイルで管理する
+# - リポジトリ配下に置かない（誤コミット/漏洩リスクを下げる）
+# - 存在しない場合はエラーにせず静かにスキップ（環境差に強くする）
+if [[ -f "$HOME/.zshrc.secret" ]]; then
+  source "$HOME/.zshrc.secret"
+fi
