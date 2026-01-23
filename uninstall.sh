@@ -62,40 +62,73 @@ restore_backup() {
         echo ""
         echo "📦 $selected_backup から復元します..."
 
-        for item in "$selected_backup"/*; do
-            if [[ ! -e "$item" ]]; then
-                continue
-            fi
+        local manifest="$selected_backup/.manifest"
+        if [[ -f "$manifest" ]]; then
+            # 構造化バックアップ: manifest に記録されたパスをそのまま復元
+            while IFS= read -r rel; do
+                [[ -z "$rel" ]] && continue
+                local src="$selected_backup/$rel"
+                local dest="$HOME/$rel"
 
-            local name
-            name="$(basename "$item")"
+                if [[ ! -e "$src" ]]; then
+                    echo "⚠️  バックアップに $rel が見つかりません。スキップします。"
+                    continue
+                fi
 
-            local dest="$HOME/$name"
+                if [[ -e "$dest" ]]; then
+                    echo "⚠️  $dest は既に存在します。スキップします。"
+                    continue
+                fi
 
-            # .config 配下に復元するもの
-            if [[ "$name" == "starship.toml" ]]; then
-                mkdir -p "$HOME/.config"
-                dest="$HOME/.config/starship.toml"
-            elif [[ "$name" == "nvim" ]]; then
-                mkdir -p "$HOME/.config"
-                dest="$HOME/.config/nvim"
-            fi
+                mkdir -p "$(dirname "$dest")"
 
-            if [[ -e "$dest" ]]; then
-                echo "⚠️  $dest は既に存在します。スキップします。"
-                continue
-            fi
+                if [[ -d "$src" ]]; then
+                    cp -R "$src" "$dest"
+                    echo "✓ $rel を $dest に復元しました。"
+                elif [[ -f "$src" ]]; then
+                    cp "$src" "$dest"
+                    echo "✓ $rel を $dest に復元しました。"
+                else
+                    echo "⚠️  $rel は未対応の形式です。スキップします。"
+                fi
+            done < "$manifest"
+        else
+            # 旧形式バックアップ（basename保存）への互換復元
+            for item in "$selected_backup"/*; do
+                if [[ ! -e "$item" ]]; then
+                    continue
+                fi
 
-            if [[ -d "$item" ]]; then
-                cp -R "$item" "$dest"
-                echo "✓ $name を $dest に復元しました。"
-            elif [[ -f "$item" ]]; then
-                cp "$item" "$dest"
-                echo "✓ $name を $dest に復元しました。"
-            else
-                echo "⚠️  $name は未対応の形式です。スキップします。"
-            fi
-        done
+                local name
+                name="$(basename "$item")"
+
+                local dest="$HOME/$name"
+
+                # .config 配下に復元するもの
+                if [[ "$name" == "starship.toml" ]]; then
+                    mkdir -p "$HOME/.config"
+                    dest="$HOME/.config/starship.toml"
+                elif [[ "$name" == "nvim" ]]; then
+                    mkdir -p "$HOME/.config"
+                    dest="$HOME/.config/nvim"
+                fi
+
+                if [[ -e "$dest" ]]; then
+                    echo "⚠️  $dest は既に存在します。スキップします。"
+                    continue
+                fi
+
+                if [[ -d "$item" ]]; then
+                    cp -R "$item" "$dest"
+                    echo "✓ $name を $dest に復元しました。"
+                elif [[ -f "$item" ]]; then
+                    cp "$item" "$dest"
+                    echo "✓ $name を $dest に復元しました。"
+                else
+                    echo "⚠️  $name は未対応の形式です。スキップします。"
+                fi
+            done
+        fi
     else
         echo "無効な選択です。復元をスキップしました。"
     fi

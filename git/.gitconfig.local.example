@@ -1,0 +1,7 @@
+[user]
+  name = Your Name
+  email = you@example.com
+
+# Optional: per-machine overrides
+#[core]
+#  editor = nvim

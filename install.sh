@@ -5,6 +5,9 @@ set -euo pipefail
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKUP_DIR="$HOME/.dotfiles_backup_$(date +%Y%m%d_%H%M%S)"
 
+# バックアップのmanifest（元のパスを復元するため）
+MANIFEST_FILE="$BACKUP_DIR/.manifest"
+
 # 必要なツールをチェックする関数
 check_prerequisites() {
     local missing_tools=()
@@ -63,7 +66,17 @@ create_symlink() {
     if [[ -e "$target" ]] && [[ ! -L "$target" ]]; then
         echo "📦 既存の $target をバックアップします..."
         mkdir -p "$BACKUP_DIR"
-        mv "$target" "$BACKUP_DIR/$(basename "$target")"
+        # $HOME 配下の相対パスを保持してバックアップする（構造化バックアップ）
+        local rel
+        if [[ "$target" == "$HOME/"* ]]; then
+            rel="${target#"$HOME/"}"
+        else
+            # 想定外の場所は衝突回避のためフラットに退避
+            rel="$(basename "$target")"
+        fi
+        mkdir -p "$(dirname "$BACKUP_DIR/$rel")"
+        mv "$target" "$BACKUP_DIR/$rel"
+        echo "$rel" >> "$MANIFEST_FILE"
     fi
     
     # シンボリックリンクを作成
