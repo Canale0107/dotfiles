@@ -90,10 +90,10 @@ use_os_path_sep = false
 fish_style_pwd_dir_length = 2
 
 [directory.substitutions]
-"Documents" = " "
-"Downloads" = " "
-"Music" = " "
-"Pictures" = " "
+"Documents" = ""
+"Downloads" = ""
+"Music" = ""
+"Pictures" = ""
 
 # Git ブランチ
 [git_branch]
