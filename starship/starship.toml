@@ -23,6 +23,7 @@ $nodejs\
 $python\
 $rust\
 $golang\
+$aws\
 $docker_context\
 $package\
 $cmd_duration\
@@ -199,3 +200,9 @@ ssh_only = true
 format = "[ 󰩟 $localipv4 ]($style)"
 style = "bg:#444444 fg:#CFCFCF"
 disabled = false
+
+# AWS（AWS_PROFILE があるときだけ profile を表示）
+[aws]
+disabled = false
+format = "[ 󰸏 $profile ]($style)"
+style = "bg:#444444 fg:#FFAF5F"
