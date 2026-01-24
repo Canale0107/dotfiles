@@ -28,9 +28,16 @@ setopt EXTENDED_HISTORY HIST_IGNORE_ALL_DUPS HIST_REDUCE_BLANKS
 # ============================================================
 # Completion (zsh builtin)
 # ============================================================
-# 思想: Zsh 標準補完を有効化し、必要なら見た目/挙動を整える
+# 思想: Zsh 標準補完を有効化し、速度と品質を両立する
 autoload -Uz compinit
-compinit
+# -C: 初回に dump を作り、以降は更新チェックを省略して高速化
+#     補完が壊れたら `rm -f ~/.zcompdump* && compinit` で再生成
+compinit -C
+
+# 補完の品質（挙動）
+setopt AUTO_MENU        # 候補があれば自動でメニュー
+setopt COMPLETE_IN_WORD # 単語途中でも補完
+setopt ALWAYS_TO_END    # 補完後カーソルを末尾へ
 
 # 代表的な補完スタイル（好みで調整）
 zstyle ':completion:*' menu select
@@ -78,17 +85,24 @@ if command -v pyenv >/dev/null 2>&1; then
 fi
 
 # ============================================================
-# エイリアス（ls, li）
+# エイリアス
 # ============================================================
-# ezaコマンドを使って、見やすいアイコン付きリスト表示を提供
-# - ls:    通常表示をeza + アイコンで実現
-# - li:    詳細（-la）表示＋Git情報＋アイコン付き
+# 思想: よく使うコマンドは「安全」と「見やすさ」をデフォルトにする
+# - rm/mv/cp: うっかり破壊を防ぐため確認を挟む
+alias rm='rm -i'
+alias mv='mv -i'
+alias cp='cp -i'
+#
+# - ls/li: eza があればアイコン付きで見やすく（なければ標準 ls）
 if command -v eza >/dev/null 2>&1; then
   alias ls="eza --icons"
   alias li="eza -la --icons --git"
 else
   alias li="ls -la"
 fi
+
+# cdしたら中身が見える
+function chpwd() { ls -A }
 
 # ============================================================
 # secrets (do not commit)
