@@ -37,7 +37,8 @@ $time\
 
 # 左右分割（右寄せ用）
 [fill]
-symbol = " "
+symbol = "─"
+style = "bold cyan"
 
 # os
 [os]
