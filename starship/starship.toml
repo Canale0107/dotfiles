@@ -162,7 +162,7 @@ vimcmd_symbol = "[>](bold green) "
 [nodejs]
 format = "[   $version ]($style)"
 symbol = ""
-style = "fg:#7CFC00"
+style = "fg:#8CC84B"
 detect_files = ["package.json"]
 detect_folders = ["node_modules"]
 
