@@ -88,21 +88,23 @@ fi
 # エイリアス
 # ============================================================
 # 思想: よく使うコマンドは「安全」と「見やすさ」をデフォルトにする
-# - rm/mv/cp: うっかり破壊を防ぐため確認を挟む
-alias rm='rm -i'
-alias mv='mv -i'
-alias cp='cp -i'
-#
-# - ls/li: eza があればアイコン付きで見やすく（なければ標準 ls）
+
+# 破壊系は “安全版” を別名で（rmを上書きしない方が事故が少ない）
+alias rmi='rm -i'
+alias mvi='mv -i'
+alias cpi='cp -i'
+
+# eza があれば見やすく
 if command -v eza >/dev/null 2>&1; then
   alias ls="eza --icons"
   alias li="eza -la --icons --git"
+  lt() { command eza --tree --icons "$@"; }
 else
   alias li="ls -la"
 fi
 
-# cdしたら中身が見える
-function chpwd() { ls -A }
+# cdしたら中身が見える（eza/lsどっちでもOK）
+chpwd() { ls -A; }
 
 # ============================================================
 # secrets (do not commit)
@@ -156,3 +158,5 @@ if command -v brew >/dev/null 2>&1; then
     source "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
   fi
 fi
+
+source /Users/canale/.config/broot/launcher/bash/br
