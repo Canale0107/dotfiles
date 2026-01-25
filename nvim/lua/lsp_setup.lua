@@ -18,6 +18,16 @@ local function enable(name)
   end
 end
 
+local function lsp_capabilities()
+  local ok, cmp = pcall(require, "cmp_nvim_lsp")
+  if ok and type(cmp.default_capabilities) == "function" then
+    return cmp.default_capabilities()
+  end
+  return vim.lsp.protocol.make_client_capabilities()
+end
+
+local capabilities = lsp_capabilities()
+
 -- marksman (Markdown)
 if vim.fn.executable("marksman") == 1 then
   set_lsp_config("marksman", {
@@ -25,6 +35,7 @@ if vim.fn.executable("marksman") == 1 then
     filetypes = { "markdown", "markdown.mdx" },
     root_markers = { ".marksman.toml", ".git" },
     single_file_support = true,
+    capabilities = capabilities,
   })
   enable("marksman")
 end
@@ -36,6 +47,7 @@ if vim.fn.executable("lua-language-server") == 1 then
     filetypes = { "lua" },
     root_markers = { ".luarc.json", ".luarc.jsonc", ".git" },
     single_file_support = true,
+    capabilities = capabilities,
     settings = {
       Lua = {
         diagnostics = { globals = { "vim" } },
