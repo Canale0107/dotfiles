@@ -59,7 +59,6 @@
   features = decorations
   navigate = true
   line-numbers = true
-  whitespace-error-style = none
 
 # Local-only overrides (do not commit):
 # - user.name / user.email
