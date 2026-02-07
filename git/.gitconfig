@@ -64,8 +64,7 @@
 # - user.name / user.email
 # - work-specific settings
 [include]
-  path = ~/.gitconfig.local
-[filter "lfs"]
+  path = ~/.gitconfig.local-[filter "lfs"]
 	process = git-lfs filter-process
 	required = true
 	clean = git-lfs clean -- %f
