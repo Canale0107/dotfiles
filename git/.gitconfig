@@ -72,3 +72,13 @@
 [user]
 	name = kanare-dev
 	email = me@kanare.dev
+
+# Commit signing (GitHub "Verified") via SSH keys
+[gpg]
+	format = ssh
+
+[commit]
+	gpgsign = true
+
+[user]
+	signingkey = ~/.ssh/id_ed25519.pub
