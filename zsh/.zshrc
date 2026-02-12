@@ -94,6 +94,11 @@ alias rmi='rm -i'
 alias mvi='mv -i'
 alias cpi='cp -i'
 
+# Claude
+if command -v claude >/dev/null 2>&1; then
+  alias cc='claude'
+fi
+
 # eza があれば見やすく
 if command -v eza >/dev/null 2>&1; then
   alias ls="eza --icons"
