@@ -36,8 +36,16 @@
 [rerere]
   enabled = true
 
-# Safe workflows (aliases)
+# Aliases
 [alias]
+  s   = status -sb
+  lg  = log --oneline --graph --decorate --all
+  au  = add -u
+  aa  = add -A
+  c   = commit
+  cm  = commit -m
+  d   = diff
+  ds  = diff --staged
   # sync: fetch→(未pushコミットがあればバックアップブランチ作成)→rebase @{u}
   # - backup/<branch>-YYYYMMDD-HHMMSS を作るので、rebase で迷子になっても戻れます
   # - upstream が無い場合は案内して終了します
