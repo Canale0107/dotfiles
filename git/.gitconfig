@@ -93,5 +93,8 @@
 	gpgsign = true
 
 # AI-assisted commit message generation
+# commit-provider: claude or codex
+# commit-model: model name for the selected provider
 [ai]
+  commit-provider = claude
   commit-model = haiku

@@ -17,10 +17,25 @@ fi
 DIFF="$(git diff --staged)"
 [[ -z "$DIFF" ]] && exit 0
 
-MODEL="$(git config --get ai.commit-model 2>/dev/null || echo "haiku")"
-MSG="$(claude -p --model "$MODEL" "Output ONLY a single-line commit message in Conventional Commits format for the following diff. No explanation, no preamble, no quotes, no markdown, no signature. Just the commit message.
+PROVIDER="$(git config --get ai.commit-provider 2>/dev/null || echo "claude")"
+MODEL="$(git config --get ai.commit-model 2>/dev/null)"
+PROMPT="Output ONLY a single-line commit message in Conventional Commits format for the following diff. No explanation, no preamble, no quotes, no markdown, no signature. Just the commit message.
 
-$DIFF")"
+$DIFF"
+
+case "$PROVIDER" in
+  claude)
+    MSG="$(claude -p --model "${MODEL:-haiku}" "$PROMPT")"
+    ;;
+  codex)
+    MSG="$(codex exec -m "${MODEL:-gpt-5.1-codex-mini}" "$PROMPT")"
+    ;;
+  *)
+    echo "Unknown ai.commit-provider: $PROVIDER" >&2
+    exit 1
+    ;;
+esac
+
 # 余計な行が含まれた場合は1行目だけ使う
 MSG="$(printf "%s" "$MSG" | head -1)"
 printf "%s\n" "$MSG" > "$MSG_FILE"
