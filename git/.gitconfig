@@ -82,3 +82,7 @@
 
 [commit]
 	gpgsign = true
+
+# AI-assisted commit message generation
+[ai]
+  commit-model = haiku

@@ -9,13 +9,14 @@ if [[ "$COMMIT_SOURCE" == "merge" ]] || [[ "$COMMIT_SOURCE" == "squash" ]] || [[
   exit 0
 fi
 
-# 既にメッセージがあるなら何もしない
-if [[ -s "$MSG_FILE" ]]; then
+# 既にメッセージがあるなら何もしない（コメント行・空行は無視）
+if grep -q '^[^#]' "$MSG_FILE" 2>/dev/null && grep '^[^#]' "$MSG_FILE" | grep -q '[^[:space:]]'; then
   exit 0
 fi
 
 DIFF="$(git diff --staged)"
 [[ -z "$DIFF" ]] && exit 0
 
-MSG="$(claude -p "以下のgit diff --stagedから、Conventional Commits形式で英語1行のコミットメッセージを1つだけ出力して。説明・箇条書き・引用符・AI署名は禁止。\n\n$DIFF")"
+MODEL="$(git config --get ai.commit-model 2>/dev/null || echo "haiku")"
+MSG="$(claude -p --model "$MODEL" "以下のgit diff --stagedから、Conventional Commits形式で英語1行のコミットメッセージを1つだけ出力して。説明・箇条書き・引用符・AI署名は禁止。\n\n$DIFF")"
 printf "%s\n" "$MSG" > "$MSG_FILE"
