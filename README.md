@@ -4,7 +4,8 @@
 
 ## ターミナルの外見
 
-![ターミナルの外見](assets/terminal.png)
+![ターミナルの外見-1](assets/terminal-1.png)
+![ターミナルの外見-2](assets/terminal-2.png)
 
 ## 含まれる設定
 
