@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+MSG_FILE="$1"
+COMMIT_SOURCE="${2-}"
+SHA="${3-}"
+
+# merge/squash/rebase中などは触らない
+if [[ "$COMMIT_SOURCE" == "merge" ]] || [[ "$COMMIT_SOURCE" == "squash" ]] || [[ -n "$SHA" ]]; then
+  exit 0
+fi
+
+# 既にメッセージがあるなら何もしない
+if [[ -s "$MSG_FILE" ]]; then
+  exit 0
+fi
+
+DIFF="$(git diff --staged)"
+[[ -z "$DIFF" ]] && exit 0
+
+MSG="$(claude -p "以下のgit diff --stagedから、Conventional Commits形式で英語1行のコミットメッセージを1つだけ出力して。説明・箇条書き・引用符・AI署名は禁止。\n\n$DIFF")"
+printf "%s\n" "$MSG" > "$MSG_FILE"

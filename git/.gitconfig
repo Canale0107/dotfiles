@@ -10,6 +10,8 @@
   pager = delta
   # Global gitignore file location
   excludesfile = ~/.gitignore_global
+  # Global hooks directory (AI commit message generation, etc.)
+  hooksPath = ~/dotfiles/git/hooks
 
 # Fetch behavior
 [fetch]
