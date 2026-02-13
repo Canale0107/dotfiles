@@ -18,5 +18,9 @@ DIFF="$(git diff --staged)"
 [[ -z "$DIFF" ]] && exit 0
 
 MODEL="$(git config --get ai.commit-model 2>/dev/null || echo "haiku")"
-MSG="$(claude -p --model "$MODEL" "以下のgit diff --stagedから、Conventional Commits形式で英語1行のコミットメッセージを1つだけ出力して。説明・箇条書き・引用符・AI署名は禁止。\n\n$DIFF")"
+MSG="$(claude -p --model "$MODEL" "Output ONLY a single-line commit message in Conventional Commits format for the following diff. No explanation, no preamble, no quotes, no markdown, no signature. Just the commit message.
+
+$DIFF")"
+# 余計な行が含まれた場合は1行目だけ使う
+MSG="$(printf "%s" "$MSG" | head -1)"
 printf "%s\n" "$MSG" > "$MSG_FILE"
