@@ -10,3 +10,5 @@
 
 # ssh
 .ssh/
+
+**/.claude/settings.local.json
