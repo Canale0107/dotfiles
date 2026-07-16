@@ -130,10 +130,6 @@ format = "[ $symbol$percentage ]($style)"
 
 [[battery.display]]
 threshold = 30
-style = "bg:user_battery fg:yellow"
-
-[[battery.display]]
-threshold = 100
 style = "bg:user_battery fg:white"
 
 # ディレクトリ
