@@ -4,27 +4,38 @@
 # 先頭の空行を出さない
 add_newline = false
 
+# 使用するカラーパレット
+palette = "main"
+
 # プロンプトのフォーマット
+# 表示順: OS → ユーザー名 → ホスト名 → バッテリー → ディレクトリ
+#         → Git(ブランチ/ステータス/メトリクス/コミット) → 時刻 → 実行時間
+# ※ hostname/localip は SSH接続時のみ、cmd_duration は実行時間が長いときのみ中身が表示され、
+#   それ以外のときは矢印()だけがそのまま繋がって表示される
 format = """
-[](fg:#F2F2F2)\
+[](fg:color_os)\
 $os\
-[](fg:#F2F2F2 bg:#585858)\
+[](fg:color_os bg:user_username)\
 $username\
+[](fg:user_username bg:user_hostname)\
 $hostname\
+[](fg:user_hostname bg:user_battery)\
 $battery\
-[](fg:#585858 bg:#0087AF)\
+[](fg:user_battery bg:color_dir)\
 $directory\
-[](fg:#0087AF bg:#77aec9)\
+[](fg:color_dir bg:git_branch_bg)\
 $git_branch\
+[](fg:git_branch_bg bg:git_status_bg)\
 $git_status\
+[](fg:git_status_bg bg:git_metrics_bg)\
 $git_metrics\
+[](fg:git_metrics_bg bg:git_commit_bg)\
 $git_commit\
-[](fg:#77aec9)\
-$fill\
-[](fg:#444444)\
-$cmd_duration\
+[](fg:git_commit_bg bg:time_bg)\
 $time\
-[](fg:#444444)
+[](fg:time_bg bg:cmd_duration_bg)\
+$cmd_duration\
+[](fg:cmd_duration_bg)
 [╰─────](bold cyan)$character"""
 
 right_format = """
@@ -39,10 +50,56 @@ $package\
 $localip
 """
 
+# ─────────────────────────────────────────────
+# カラーパレット（色の一元管理）
+#
+# 表示順（グラデーション）:
+#   OS → ユーザー名 → ホスト名 → バッテリー → ディレクトリ
+#   → Git(ブランチ/ステータス/メトリクス/コミット) → 時刻 → 実行時間
+#
+# 色を変えたい場合はここだけ編集すればOK。
+# ─────────────────────────────────────────────
+[palettes.main]
+# OS
+color_os = "#FFFFFF"
+
+# ユーザー名・ホスト名・バッテリー（それぞれ別色）
+user_username = "#001219"
+user_hostname = "#005F73"
+user_battery = "#0A9396"
+
+# ディレクトリ
+color_dir = "#94D2BD"
+
+# Git（ブランチ/ステータス/メトリクス/コミットそれぞれ別色）
+git_branch_bg = "#E9D8A6"
+git_status_bg = "#EE9B00"
+git_metrics_bg = "#CA6702"
+git_commit_bg = "#BB3E03"
+
+# 時刻・実行時間（それぞれ別色）
+time_bg = "#AE2012"
+cmd_duration_bg = "#9B2226"
+
+# グラデーションとは独立した固定色（文字色や強調用）
+white = "#F2F2F2"
+light_gray = "#CFCFCF"
+dark = "#303030"
+gray = "#585858"
+yellow = "#CCCC11"
+red = "#AF0000"
+node_green = "#8CC84B"
+python_yellow = "#FFD75F"
+rust_red = "#FF5F5F"
+golang_cyan = "#5FD7FF"
+terraform_purple = "#7B42BC"
+aws_orange = "#FFAF5F"
+docker_blue = "#5F87FF"
+
 # os
 [os]
-style = "bg:#F2F2F2 fg:#585858"
-format = "[ $symbol ]($style)"
+style = "bg:color_os fg:dark"
+format = "[ $symbol  ]($style)"
 disabled = false
 
 [os.symbols]
@@ -53,14 +110,14 @@ Ubuntu = "" #Ubuntuのicon
 [username]
 show_always = true
 format = "[  $user ]($style)"
-style_user = "bg:#585858 fg:#F2F2F2"
-style_root = "bg:#585858 fg:#FF5F5F"
+style_user = "bg:user_username fg:white"
+style_root = "bg:user_username fg:white"
 
 # ホスト名（通常は非表示、SSH接続時のみ表示）
 [hostname]
 ssh_only = true
 format = "[  $hostname ]($style)"
-style = "bg:#585858 fg:#CFCFCF"
+style = "bg:user_hostname fg:white"
 
 # バッテリー（バッテリー駆動時に表示されやすくする）
 [battery]
@@ -73,13 +130,17 @@ format = "[ $symbol$percentage ]($style)"
 
 [[battery.display]]
 threshold = 30
-style = "bg:#585858 fg:#CCCC11"
+style = "bg:user_battery fg:yellow"
+
+[[battery.display]]
+threshold = 100
+style = "bg:user_battery fg:white"
 
 # ディレクトリ
 [directory]
-style = "fg:#303030 bg:#0087AF"
+style = "fg:dark bg:color_dir"
 read_only = ""
-read_only_style = "fg:#AF0000 bg:#0087AF"
+read_only_style = "fg:red bg:color_dir"
 format = "[ 󰉋 $path ]($style)[$read_only]($read_only_style)"
 truncation_length = 4
 truncation_symbol = "…/"
@@ -97,14 +158,14 @@ fish_style_pwd_dir_length = 2
 # Git ブランチ
 [git_branch]
 symbol = ""
-style = "bg:#77aec9 fg:#303030"
+style = "bg:git_branch_bg fg:dark"
 format = "[ $symbol $branch(:$remote_branch) ]($style)"
 truncation_length = 20
 truncation_symbol = "…"
 
 # Git ステータス（変更がある場合のみ表示）
 [git_status]
-style = "bg:#77aec9 fg:#303030"
+style = "bg:git_status_bg fg:dark"
 format = "[\\[$all_status$ahead_behind\\]]($style)"
 conflicted = "󰞇${count}"
 up_to_date = "✓"
@@ -122,12 +183,12 @@ diverged = "⇕⇡${ahead_count}⇣${behind_count}"
 [git_metrics]
 disabled = false
 format = "[ +$added]($added_style)[/-$deleted]($deleted_style)"
-added_style = "bg:#77aec9 fg:#585858"
-deleted_style = "bg:#77aec9 fg:#585858"
+added_style = "bg:git_metrics_bg fg:dark"
+deleted_style = "bg:git_metrics_bg fg:dark"
 
 # Git コミット（detached HEAD時など）
 [git_commit]
-style = "bg:#77aec9 fg:#303030"
+style = "bg:git_commit_bg fg:white"
 format = "[  $hash$tag ]($style)"
 commit_hash_length = 4
 only_detached = true
@@ -142,13 +203,13 @@ style = "bold cyan"
 [cmd_duration]
 min_time = 1_000
 format = "[  $duration ]($style)"
-style = "bg:#444444 fg:#CCCC11"
+style = "bg:cmd_duration_bg fg:white"
 
 # 時刻（右側に表示）
 [time]
 disabled = false
 format = "[  $time ]($style)"
-style = "bg:#444444 fg:#F2F2F2"
+style = "bg:time_bg fg:white"
 use_12hr = false
 time_format = "%T"
 
@@ -162,7 +223,7 @@ vimcmd_symbol = "[>](bold green) "
 [nodejs]
 format = "[   $version ]($style)"
 symbol = ""
-style = "fg:#8CC84B"
+style = "fg:node_green"
 detect_files = ["package.json"]
 detect_folders = ["node_modules"]
 
@@ -170,7 +231,7 @@ detect_folders = ["node_modules"]
 [python]
 format = "[   $version (${virtualenv})]($style)"
 symbol = ""
-style = "fg:#FFD75F"
+style = "fg:python_yellow"
 detect_files = [".python-version", "Pipfile", "__pycache__", "pyproject.toml", "requirements.txt", "setup.py", "tox.ini"]
 detect_folders = []
 
@@ -178,7 +239,7 @@ detect_folders = []
 [rust]
 format = "[   $version]($style)"
 symbol = ""
-style = "fg:#FF5F5F"
+style = "fg:rust_red"
 detect_files = ["Cargo.toml", "Cargo.lock"]
 detect_folders = []
 
@@ -186,14 +247,14 @@ detect_folders = []
 [golang]
 format = "[   $version]($style)"
 symbol = ""
-style = "fg:#5FD7FF"
+style = "fg:golang_cyan"
 detect_files = ["go.mod", "go.sum", "glide.yaml", "Gopkg.yml", "Gopkg.lock", ".go-version"]
 detect_folders = ["Godeps"]
 
 # Terraform
 [terraform]
 format = "[  󱁢 $version ($workspace) ]($style)"
-style = "fg:#7B42BC"
+style = "fg:terraform_purple"
 detect_extensions = ["tf", "tfvars", "tfplan", "tfstate", "hcl"]
 detect_files = ["terraform.tfstate", ".terraform.lock.hcl", "terragrunt.hcl"]
 
@@ -201,13 +262,13 @@ detect_files = ["terraform.tfstate", ".terraform.lock.hcl", "terragrunt.hcl"]
 [aws]
 disabled = false
 format = "[  󰸏 $profile]($style)"
-style = "fg:#FFAF5F"
+style = "fg:aws_orange"
 
 # Docker コンテキスト
 [docker_context]
 format = "[  $symbol$context]($style)"
 symbol = " "
-style = "fg:#5F87FF"
+style = "fg:docker_blue"
 only_with_files = true
 detect_files = ["docker-compose.yml", "docker-compose.yaml", "Dockerfile", ".dockerignore"]
 detect_folders = []
@@ -216,12 +277,12 @@ detect_folders = []
 [package]
 format = "[  $symbol$version]($style)"
 symbol = "󰏗 "
-style = "fg:#FFAF5F"
+style = "fg:aws_orange"
 display_private = false
 
 # SSH時のローカルIP表示（必要なときだけ）
 [localip]
 ssh_only = true
 format = "[  󰩟 $localipv4]($style)"
-style = "fg:#CFCFCF"
+style = "fg:light_gray"
 disabled = false
