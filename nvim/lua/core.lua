@@ -48,7 +48,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "LSP: code action")
     map("n", "[d", vim.diagnostic.goto_prev, "Diagnostic: previous")
     map("n", "]d", vim.diagnostic.goto_next, "Diagnostic: next")
-    map("n", "<leader>e", vim.diagnostic.open_float, "Diagnostic: float")
+    map("n", "<leader>d", vim.diagnostic.open_float, "Diagnostic: float")
     map("n", "<leader>q", vim.diagnostic.setloclist, "Diagnostic: loclist")
   end,
 })
