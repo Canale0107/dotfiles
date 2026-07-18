@@ -19,9 +19,9 @@ local function enable(name)
 end
 
 local function lsp_capabilities()
-  local ok, cmp = pcall(require, "cmp_nvim_lsp")
-  if ok and type(cmp.default_capabilities) == "function" then
-    return cmp.default_capabilities()
+  local ok, blink = pcall(require, "blink.cmp")
+  if ok and type(blink.get_lsp_capabilities) == "function" then
+    return blink.get_lsp_capabilities()
   end
   return vim.lsp.protocol.make_client_capabilities()
 end
@@ -57,3 +57,14 @@ if vim.fn.executable("lua-language-server") == 1 then
   enable("lua_ls")
 end
 
+-- basedpyright (Python)
+if vim.fn.executable("basedpyright-langserver") == 1 then
+  set_lsp_config("basedpyright", {
+    cmd = { "basedpyright-langserver", "--stdio" },
+    filetypes = { "python" },
+    root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git" },
+    single_file_support = true,
+    capabilities = capabilities,
+  })
+  enable("basedpyright")
+end

@@ -1,7 +1,10 @@
 return {
   {
     "williamboman/mason.nvim",
-    cmd = { "Mason", "MasonInstall", "MasonUpdate", "MasonUninstall" },
+    -- Not lazy: mason.setup() must run before lsp_setup.lua checks
+    -- vim.fn.executable(...), otherwise mason's PATH prepend happens too late
+    -- and mason-installed servers are never found on startup.
+    lazy = false,
     opts = {},
   },
   {
