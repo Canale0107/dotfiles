@@ -109,7 +109,7 @@ docker_blue = "#5F87FF"
 
 # os
 [os]
-style = "bg:color_os fg:dark"
+style = "bg:color_os fg:light_gray"
 format = "[ $symbol  ]($style)"
 disabled = false
 
@@ -121,14 +121,14 @@ Ubuntu = "" #Ubuntuのicon
 [username]
 show_always = true
 format = "[  $user ]($style)"
-style_user = "bg:user_username fg:white"
-style_root = "bg:user_username fg:white"
+style_user = "bg:user_username fg:dark"
+style_root = "bg:user_username fg:dark"
 
 # ホスト名（通常は非表示、SSH接続時のみ表示）
 [hostname]
 ssh_only = true
 format = "[  $hostname ]($style)"
-style = "bg:user_hostname fg:white"
+style = "bg:user_hostname fg:dark"
 
 # バッテリー（バッテリー駆動時に表示されやすくする）
 [battery]
@@ -141,7 +141,7 @@ format = "[ $symbol$percentage ]($style)"
 
 [[battery.display]]
 threshold = 30
-style = "bg:user_battery fg:white"
+style = "bg:user_battery fg:light_gray"
 
 # ディレクトリ
 [directory]
