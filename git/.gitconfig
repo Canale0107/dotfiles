@@ -73,11 +73,7 @@
 # - user.name / user.email
 # - work-specific settings
 [include]
-  path = ~/.gitconfig.local-[filter "lfs"]
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
+  path = ~/.gitconfig.local
 [user]
 	name = kanare-dev
 	email = me@kanare.dev
