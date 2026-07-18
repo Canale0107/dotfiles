@@ -119,6 +119,11 @@ create_symlink "$DOTFILES_DIR/claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 mkdir -p "$HOME/.config/ccstatusline"
 create_symlink "$DOTFILES_DIR/ccstatusline/settings.json" "$HOME/.config/ccstatusline/settings.json"
 
+# Ghostty
+# macOS 版 Ghostty は ~/.config/ghostty ではなく Application Support 配下を見る
+mkdir -p "$HOME/Library/Application Support/com.mitchellh.ghostty"
+create_symlink "$DOTFILES_DIR/ghostty/config" "$HOME/Library/Application Support/com.mitchellh.ghostty/config"
+
 if [[ -d "$BACKUP_DIR" ]]; then
     echo ""
     echo "📦 バックアップは $BACKUP_DIR に保存されました。"
