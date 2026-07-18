@@ -11,6 +11,7 @@ SYMLINKS=(
     "$HOME/.gitignore_global"
     "$HOME/.config/starship.toml"
     "$HOME/.config/nvim"
+    "$HOME/.claude/settings.json"
 )
 
 # シンボリックリンクを削除する関数

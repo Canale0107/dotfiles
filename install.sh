@@ -108,6 +108,12 @@ create_symlink "$DOTFILES_DIR/starship/starship.toml" "$HOME/.config/starship.to
 # nvim
 create_symlink "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
 
+# Claude Code
+# 注意: ~/.claude/ には会話履歴やキャッシュなど個人的・巨大なデータも
+# 混在しているため、ディレクトリ全体ではなく設定ファイル単位でリンクする
+mkdir -p "$HOME/.claude"
+create_symlink "$DOTFILES_DIR/claude/settings.json" "$HOME/.claude/settings.json"
+
 if [[ -d "$BACKUP_DIR" ]]; then
     echo ""
     echo "📦 バックアップは $BACKUP_DIR に保存されました。"

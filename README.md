@@ -13,6 +13,7 @@
 - **git**: `.gitconfig` と `.gitignore_global` 設定ファイル
 - **starship**: プロンプトカスタマイズ設定 (`starship.toml`)
 - **nvim**: Neovim 設定 (`~/.config/nvim`)
+- **claude**: Claude Code のユーザー設定 (`~/.claude/settings.json`)
 
 ## git のローカル分離（推奨）
 
@@ -63,10 +64,22 @@ dotfiles/
 │   └── .zshrc
 ├── starship/
 │   └── starship.toml
+├── claude/
+│   └── settings.json
 ├── install.sh
 ├── uninstall.sh
 └── README.md
 ```
+
+## Claude Code の設定について
+
+`~/.claude/` には設定以外に会話履歴・セッション・キャッシュなど個人的/巨大なデータが
+大量に混在しているため、ディレクトリ全体ではなく `settings.json` のみをシンボリック
+リンクで管理しています。以下は意図的に対象外です。
+
+- `history.jsonl` / `projects/` / `sessions/` / `shell-snapshots/` などの会話履歴・実行時データ
+- `plugins/` / `skills/skill-creator` など、marketplace からインストールされる/同梱される生成物
+- `~/.claude.json`（MCPサーバー設定やプロジェクト固有情報を含み、マシン間で共有すべきでない）
 
 ## 注意事項
 
