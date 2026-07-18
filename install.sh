@@ -123,9 +123,13 @@ mkdir -p "$HOME/.config/ccstatusline"
 create_symlink "$DOTFILES_DIR/ccstatusline/settings.json" "$HOME/.config/ccstatusline/settings.json"
 
 # Ghostty
-# macOS 版 Ghostty は ~/.config/ghostty ではなく Application Support 配下を見る
+# macOS では Application Support 配下が優先されるが、XDG (~/.config/ghostty) も
+# フォールバックとして読まれるため両方にリンクしておく
 mkdir -p "$HOME/Library/Application Support/com.mitchellh.ghostty"
 create_symlink "$DOTFILES_DIR/ghostty/config" "$HOME/Library/Application Support/com.mitchellh.ghostty/config"
+
+mkdir -p "$HOME/.config/ghostty"
+create_symlink "$DOTFILES_DIR/ghostty/config" "$HOME/.config/ghostty/config"
 
 if [[ -d "$BACKUP_DIR" ]]; then
     echo ""

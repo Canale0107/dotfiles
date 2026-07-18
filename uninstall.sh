@@ -16,6 +16,7 @@ SYMLINKS=(
     "$HOME/.claude/CLAUDE.md"
     "$HOME/.config/ccstatusline/settings.json"
     "$HOME/Library/Application Support/com.mitchellh.ghostty/config"
+    "$HOME/.config/ghostty/config"
 )
 
 # シンボリックリンクを削除する関数
