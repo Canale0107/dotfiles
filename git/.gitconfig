@@ -10,8 +10,6 @@
   pager = delta
   # Global gitignore file location
   excludesfile = ~/.gitignore_global
-  # Global hooks directory (AI commit message generation, etc.)
-  hooksPath = ~/dotfiles/git/hooks
 
 # Fetch behavior
 [fetch]
@@ -92,12 +90,6 @@
 [commit]
 	gpgsign = true
 
-# AI-assisted commit message generation
-# commit-provider: claude or codex
-# commit-model: model name for the selected provider
-[ai]
-  commit-provider = claude
-  commit-model = haiku
 [filter "lfs"]
 	process = git-lfs filter-process
 	required = true
