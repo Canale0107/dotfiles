@@ -7,6 +7,7 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # 削除対象のシンボリックリンク
 SYMLINKS=(
     "$HOME/.zshrc"
+    "$HOME/.tmux.conf"
     "$HOME/.gitconfig"
     "$HOME/.gitignore_global"
     "$HOME/.config/starship.toml"

@@ -94,6 +94,9 @@ check_prerequisites
 # zsh
 create_symlink "$DOTFILES_DIR/zsh/.zshrc" "$HOME/.zshrc"
 
+# tmux
+create_symlink "$DOTFILES_DIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
+
 # git
 create_symlink "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
 create_symlink "$DOTFILES_DIR/git/.gitignore_global" "$HOME/.gitignore_global"

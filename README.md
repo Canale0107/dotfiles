@@ -10,6 +10,7 @@
 ## 含まれる設定
 
 - **zsh**: `.zshrc` 設定ファイル
+- **tmux**: `.tmux.conf` 設定ファイル
 - **git**: `.gitconfig` と `.gitignore_global` 設定ファイル
 - **starship**: プロンプトカスタマイズ設定 (`starship.toml`)
 - **nvim**: Neovim 設定 (`~/.config/nvim`)
@@ -64,6 +65,8 @@ dotfiles/
 │       └── core.lua
 ├── zsh/
 │   └── .zshrc
+├── tmux/
+│   └── .tmux.conf
 ├── starship/
 │   └── starship.toml
 ├── claude/
