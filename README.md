@@ -54,7 +54,7 @@ cp ./git/.gitconfig.local.example ~/.gitconfig.local
 
 ## 構成
 
-```
+```plaintext
 dotfiles/
 ├── git/
 │   ├── .gitconfig
