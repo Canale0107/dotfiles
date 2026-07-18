@@ -143,6 +143,9 @@ fi
 if command -v brew >/dev/null 2>&1; then
   BREW_PREFIX="$(brew --prefix)"
   if [[ -f "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+    # デフォルトのANSIグレーはテーマの背景色と被って見づらいことがあるため、
+    # TokyoNight のコメント色を直指定して視認性を確保する
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#565f89'
     source "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
   fi
 fi
