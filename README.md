@@ -13,7 +13,7 @@
 - **git**: `.gitconfig` と `.gitignore_global` 設定ファイル
 - **starship**: プロンプトカスタマイズ設定 (`starship.toml`)
 - **nvim**: Neovim 設定 (`~/.config/nvim`)
-- **claude**: Claude Code のユーザー設定 (`~/.claude/settings.json`)
+- **claude**: Claude Code のユーザー設定 (`~/.claude/settings.json`) とグローバル指示 (`~/.claude/CLAUDE.md`)
 
 ## git のローカル分離（推奨）
 
@@ -65,7 +65,8 @@ dotfiles/
 ├── starship/
 │   └── starship.toml
 ├── claude/
-│   └── settings.json
+│   ├── settings.json
+│   └── CLAUDE.md
 ├── install.sh
 ├── uninstall.sh
 └── README.md

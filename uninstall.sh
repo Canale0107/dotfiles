@@ -12,6 +12,7 @@ SYMLINKS=(
     "$HOME/.config/starship.toml"
     "$HOME/.config/nvim"
     "$HOME/.claude/settings.json"
+    "$HOME/.claude/CLAUDE.md"
 )
 
 # シンボリックリンクを削除する関数

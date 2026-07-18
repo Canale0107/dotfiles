@@ -113,6 +113,7 @@ create_symlink "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
 # 混在しているため、ディレクトリ全体ではなく設定ファイル単位でリンクする
 mkdir -p "$HOME/.claude"
 create_symlink "$DOTFILES_DIR/claude/settings.json" "$HOME/.claude/settings.json"
+create_symlink "$DOTFILES_DIR/claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 
 if [[ -d "$BACKUP_DIR" ]]; then
     echo ""
