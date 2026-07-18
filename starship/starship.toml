@@ -10,16 +10,15 @@ palette = "main"
 # プロンプトのフォーマット
 # 表示順: OS → ユーザー名 → ホスト名 → バッテリー → ディレクトリ
 #         → Git(ブランチ/ステータス/メトリクス/コミット) → 時刻 → 実行時間
-# ※ hostname/localip は SSH接続時のみ、cmd_duration は実行時間が長いときのみ中身が表示され、
-#   それ以外のときは矢印()だけがそのまま繋がって表示される
+# ※ hostname/localip は SSH接続時のみ、cmd_duration は実行時間が長いときのみ表示される。
+#   非表示時に矢印だけ浮かないよう、username/hostname/battery、time/cmd_duration は
+#   それぞれ同色にして間の矢印セパレータを省略している
 format = """
 [](fg:color_os)\
 $os\
 [](fg:color_os bg:user_username)\
 $username\
-[](fg:user_username bg:user_hostname)\
 $hostname\
-[](fg:user_hostname bg:user_battery)\
 $battery\
 [](fg:user_battery bg:color_dir)\
 $directory\
@@ -33,7 +32,6 @@ $git_metrics\
 $git_commit\
 [](fg:git_commit_bg bg:time_bg)\
 $time\
-[](fg:time_bg bg:cmd_duration_bg)\
 $cmd_duration\
 [](fg:cmd_duration_bg)
 [╰─────](bold cyan)$character"""
@@ -61,11 +59,11 @@ $localip
 # ─────────────────────────────────────────────
 [palettes.main]
 # OS
-color_os = "#FFFFFF"
+color_os = "#005F73"
 
 # ユーザー名・ホスト名・バッテリー（それぞれ別色）
-user_username = "#001219"
-user_hostname = "#005F73"
+user_username = "#0A9396"
+user_hostname = "#0A9396"
 user_battery = "#0A9396"
 
 # ディレクトリ
@@ -79,7 +77,20 @@ git_commit_bg = "#BB3E03"
 
 # 時刻・実行時間（それぞれ別色）
 time_bg = "#AE2012"
-cmd_duration_bg = "#9B2226"
+cmd_duration_bg = "#AE2012"
+
+# color palette
+#FFFFFF
+#001219
+#005F73
+#0A9396
+#94D2BD
+#E9D8A6
+#EE9B00
+#CA6702
+#BB3E03
+#AE2012
+#9B2226
 
 # グラデーションとは独立した固定色（文字色や強調用）
 white = "#F2F2F2"
