@@ -13,6 +13,7 @@ SYMLINKS=(
     "$HOME/.config/nvim"
     "$HOME/.claude/settings.json"
     "$HOME/.claude/CLAUDE.md"
+    "$HOME/.config/ccstatusline/settings.json"
 )
 
 # シンボリックリンクを削除する関数

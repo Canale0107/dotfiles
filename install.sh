@@ -115,6 +115,10 @@ mkdir -p "$HOME/.claude"
 create_symlink "$DOTFILES_DIR/claude/settings.json" "$HOME/.claude/settings.json"
 create_symlink "$DOTFILES_DIR/claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 
+# ccstatusline
+mkdir -p "$HOME/.config/ccstatusline"
+create_symlink "$DOTFILES_DIR/ccstatusline/settings.json" "$HOME/.config/ccstatusline/settings.json"
+
 if [[ -d "$BACKUP_DIR" ]]; then
     echo ""
     echo "📦 バックアップは $BACKUP_DIR に保存されました。"

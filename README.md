@@ -14,6 +14,7 @@
 - **starship**: プロンプトカスタマイズ設定 (`starship.toml`)
 - **nvim**: Neovim 設定 (`~/.config/nvim`)
 - **claude**: Claude Code のユーザー設定 (`~/.claude/settings.json`) とグローバル指示 (`~/.claude/CLAUDE.md`)
+- **ccstatusline**: Claude Code ステータスライン設定 (`~/.config/ccstatusline/settings.json`)
 
 ## git のローカル分離（推奨）
 
@@ -67,6 +68,8 @@ dotfiles/
 ├── claude/
 │   ├── settings.json
 │   └── CLAUDE.md
+├── ccstatusline/
+│   └── settings.json
 ├── install.sh
 ├── uninstall.sh
 └── README.md
