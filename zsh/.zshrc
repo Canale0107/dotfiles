@@ -187,6 +187,4 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 export EDITOR="nvim"
 export VISUAL="$EDITOR"
 
-# git commit signing: dedicated non-Keychain agent (avoids Touch ID prompt on every use)
-export SSH_AUTH_SOCK="$HOME/.ssh/agent-git-signing.sock"
-ssh-add -l >/dev/null 2>&1 || { ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null; ssh-add ~/.ssh/id_ed25519_git_signing >/dev/null 2>&1; }
+# git commit signing key lives in the standard macOS ssh-agent (see ~/.ssh/config Host * block)
