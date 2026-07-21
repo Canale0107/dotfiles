@@ -1,17 +1,67 @@
-theme = TokyoNight
-
+# =========================
+# Appearance 
+# =========================
+font-size = 14
+font-family = JetBrainsMono Nerd Font
 background-opacity = 0.85
 background-blur = 20
 minimum-contrast = 1.3
-
-font-family = JetBrainsMono Nerd Font
-font-size = 12
-
+theme = Tomorrow Night
+#theme = TokyoNight
+palette = 8=#626880
+cursor-style = block
 cursor-style = block
 cursor-style-blink = false
-
+mouse-hide-while-typing = true
+window-padding-balance = true
 window-padding-x = 6
 window-padding-y = 6
+window-save-state = always
+window-colorspace = "display-p3"
+
+# =========================
+# Breakline 
+# =========================
+keybind = shift+enter=text:\x1b\r
+
+# =========================
+# Word by word deletion
+# =========================
+keybind = alt+backspace=text:\x1b\x7f
+keybind = shift+backspace=text:\x1b\x7f
+
+# =========================
+# Pane navigation
+# =========================
+keybind = ctrl+h=goto_split:left
+keybind = ctrl+j=goto_split:down
+keybind = ctrl+k=goto_split:up
+keybind = ctrl+l=goto_split:right
+
+# =========================
+# Pane splitting
+# =========================
+keybind = ctrl+shift+v=new_split:right
+keybind = ctrl+shift+h=new_split:down
+
+# =========================
+# Close pane
+# =========================
+keybind = ctrl+x=close_surface
+
+# =========================
+# Resize panes
+# =========================
+keybind = ctrl+comma=resize_split:left,10
+keybind = ctrl+period=resize_split:right,10
+keybind = ctrl+semicolon=resize_split:down,10
+keybind = ctrl+apostrophe=resize_split:up,10
+
+# =========================
+# scroll up/down 
+# =========================
+keybind = ctrl+shift+k=scroll_page_lines:-3
+keybind = ctrl+shift+j=scroll_page_lines:3
 
 # tmux / Neovim の Alt 修飾キーを使ったキーバインドを有効にする
-macos-option-as-alt = left
+#macos-option-as-alt = left
