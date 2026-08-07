@@ -94,6 +94,32 @@ alias rmi='rm -i'
 alias mvi='mv -i'
 alias cpi='cp -i'
 
+# --- ディレクトリ移動 ---
+alias h='cd ~'
+alias cdp='cd ~/Projects'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+# --- ファイル一覧表示 ---
+alias ll='ls -l'
+alias la='ls -a'
+
+# --- Git ---
+# gはgitに割り当てる（頻度が最も高いため最短のキーを充てる）
+alias g='git'
+alias ga='git add'
+alias gs='git status'
+alias gd='git diff'
+alias gc='git commit'
+alias gco='git checkout'
+alias gb='git branch'
+alias gp='git push'
+alias gf='git fetch'
+
+# grep
+alias gr='grep'
+
 # Claude
 if command -v claude >/dev/null 2>&1; then
   alias cc='claude'
